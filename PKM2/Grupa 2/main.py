@@ -35,6 +35,9 @@ while(cap.isOpened()):
     #qcv2.imshow('first', first)
     cv2.imshow('frame',fgmask)
     cv2.imshow('frames', frame)
+    if cv2.waitKey(1) & 0xFF == ord('s'):
+        cv2.imwrite('ramka.jpg',frame)
+
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
 
