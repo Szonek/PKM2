@@ -6,8 +6,8 @@ import cv2
 
 
 # definiujemy zakresy koloru HSV
-redLower = (0, 100, 140)
-redUpper = (40, 255, 255)
+redLower = (0, 110, 0)
+redUpper = (3, 255, 255)
 
 
 
@@ -36,7 +36,7 @@ while (camera.isOpened()):
     center = None
 
     #odfiltrowujemy ma³e i niepoprawne skupiska koloru
-    if len(cnts) > 10:
+    if len(cnts) > 3:
         #wypisujemy napis na danej klatce
         cv2.putText(frame, "Peron!", (50, 50), cv2.FONT_HERSHEY_COMPLEX_SMALL, .9, (255, 0, 100))
     cv2.imshow("Frame", frame)
