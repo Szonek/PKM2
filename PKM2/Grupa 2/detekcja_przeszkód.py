@@ -1,3 +1,6 @@
+#python_version 2.7
+#opencv_verison 3.1
+
 import cv2
 import numpy as np
 
@@ -50,7 +53,7 @@ while(video.isOpened()):
 
     cv2.imshow('frame',frame)
 
-    # warunek ktory zapewnia odstep miedzy klatkami i umozliwa wyjscia
+    # warunek ktory zapewnia odstep miedzy klatkami i umozliwajacy wyjscia
     if (cv2.waitKey(10) & 0xFF == ord('q')):
         break
 
