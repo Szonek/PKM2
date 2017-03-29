@@ -13,8 +13,10 @@ while(video.isOpened()):
     # wycinamy fragment, na ktorym widac tory
     subframe = frame[300:600, 150:350]
 
+
     # konwertujemy BGR do HSV
     hsv = cv2.cvtColor(subframe, cv2.COLOR_BGR2HSV)
+    #hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
 
     # definiujemy zakres koloru brazowego (mozna tutaj jeszcze poeksperymentowac)
     lower_brown = np.array([0, 0, 0])
@@ -35,12 +37,12 @@ while(video.isOpened()):
         # ignorowanie zbyt malych obszarow
         if cv2.contourArea(c) < 7000:
             continue
-           #naniesienie ramki
-        #(x, y, w, h) = cv2.boundingRect(c)
-        #cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
         else:
             widac_tory = True
             contours.append(cv2.contourArea(c))
+            # naniesienie ramki
+            #(x, y, w, h) = cv2.boundingRect(c)
+            #cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
 
     if(not widac_tory):
         cv2.putText(frame,'PRZESZKODA!',(30,150),cv2.FONT_HERSHEY_SIMPLEX,1,(0,255,255))

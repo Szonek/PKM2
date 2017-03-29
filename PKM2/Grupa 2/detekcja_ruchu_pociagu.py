@@ -15,7 +15,7 @@ def diffImg(t0,t1,t2):
     d2 = cv2.absdiff(t1,t0)
     return cv2.bitwise_and(d1,d2)
 
-video = cv2.VideoCapture('C:\Users\Dawid\PycharmProjects\PKM\przeszkody.avi')
+video = cv2.VideoCapture('C:\Users\Dawid\PycharmProjects\PKM\czysty.avi')
 
 
 
@@ -64,7 +64,7 @@ while(video.isOpened()):
         if cv2.contourArea(c) < 30:
             i = i-1
             continue
-
+        i=7
         #naniesienie ramki
         #(x, y, w, h) = cv2.boundingRect(c)
         #cv2.rectangle(subframe, (x, y), (x + w, y + h), (0, 255, 0), 2)
@@ -72,9 +72,9 @@ while(video.isOpened()):
 
 
     if(i>0):
-        cv2.putText(subframe, 'pociag jest w ruchu', (30, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0))
+        cv2.putText(frame, 'pociag jest w ruchu', (30, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0))
 
-    cv2.imshow(winName, subframe)
+    cv2.imshow(winName, frame)
     #out.write(frame)
 
     # warunek ktory zapewnia odstep miedzy klatkami i umozliwa wyjscia
