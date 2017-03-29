@@ -1,38 +1,61 @@
 import numpy as np
 import cv2
+from matplotlib import pyplot as plt
+
+
+#Wersja opencv 2.4.13.2
 
 cap = cv2.VideoCapture('filmiki/przeszkody.avi')
+#Obraz dlolni ktory bedzie wykorzystany jako punkt odniesienia dla algorytmu
+frames = cv2.imread('ramka.jpg')
 
-# take first frame of the video
-ret,frame = cap.read()
+#Rozmiar ramki pokazujacej dlon
+r,a,c,b = 100,200,100,150
+track_window = (r,a,c,b)
+#Wyciencie samej dloni z obrazu testowego
+x,y,w,h, = 100,100,400,400
+obrazDloni = frames[y:y+h, x:x+w]
 
-# setup initial location of window
-r,h,c,w = 0,120,0,140  # simply hardcoded the values
-track_window = (c,r,w,h)
 
-# set up the ROI for tracking
-roi = frame[r:r+h, c:c+w]
-hsv_roi =  cv2.cvtColor(roi, cv2.COLOR_BGR2HSV)
-mask = cv2.inRange(hsv_roi, np.array((0., 83.,32.)), np.array((25.,233.,180.)))
-roi_hist = cv2.calcHist([hsv_roi],[0],mask,[180],[0,180])
+#Dobor odpowiedniej maski filtrujaca nasza dlon z niepotrzebnych elementow
+dlonHsv =  cv2.cvtColor(obrazDloni, cv2.COLOR_BGR2HSV)
+mask = cv2.inRange(dlonHsv, np.array((70.,80.,110.)), np.array((190.,160.,255.)))
+#mask = cv2.inRange(hsv_roi, np.array((0.,46.,120.)), np.array((20.,116.,229.)))
+
+
+#cv2.rectangle(frames, (r, a), (r + c, a + b), 100, 2)
+
+
+#Obliczenie histogramu naszej dloni
+roi_hist = cv2.calcHist([dlonHsv],[0,1],mask,[180,250],[0,180,0,360])
 cv2.normalize(roi_hist,roi_hist,0,255,cv2.NORM_MINMAX)
 
 # Setup the termination criteria, either 10 iteration or move by atleast 1 pt
 term_crit = ( cv2.TERM_CRITERIA_EPS | cv2.TERM_CRITERIA_COUNT, 10, 1 )
-frame = cv2.imread('ramka.jpg')
+
+
 while(1):
-   # ret ,frame = cap.read()
+    ret ,frame = cap.read()
 
- #   if ret == True:
+    #Odcinami dolna czesc obrazu poniewaz dlon kolorystycznie jest podobna do piasku przy torach
+    frame = frame[0:500]
+
+    if ret == True:
         hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
-        dst = cv2.calcBackProject([hsv],[0],roi_hist,[150,180],1)
+        #Funkcja porownujaca histogram modeluz histogramem z pojedynczej ramki
+        dst = cv2.calcBackProject([hsv],[0,1],roi_hist,[0,180,0,250],2)
+        dst=cv2.medianBlur(dst, 3)#powoduje usuniecie niektorych szumow do testowania
 
-        # apply meanshift to get the new location
+        #Funkcja szukajaca srodka masy tzn przesuwa okno w miejsce wiekszego zagesczenia dst
         ret, track_window = cv2.meanShift(dst, track_window, term_crit)
-
-        # Draw it on image
         x,y,w,h = track_window
-        cv2.rectangle(frame, (x,y), (x+w,y+h), 100,2)
+
+        #Pobieramy ramke z obrazu rozkladu prawdobodobientwa znalezienia tego samego histogramu
+        ramka = dst[y:y+h,x:x+w]
+
+        #pewnego rodzaju treshold ktory eliminuje szumy i powoduje ze nie pojawia sie obramowanie
+        if np.sum(ramka) >10000:
+            cv2.rectangle(frame, (x ,y), (x+w,y+h), 100,2)
         cv2.imshow('img2',frame)
 
         k = cv2.waitKey(60) & 0xff
