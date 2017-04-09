@@ -11,7 +11,7 @@ while(video.isOpened()):
     # pobieramy ramke
     _, frame = video.read()
     # wycinamy fragment, na ktorym widac tory
-    subframe = frame[300:600, 150:350]
+    subframe = frame[200:400, 150:350]
 
 
     # konwertujemy BGR do HSV
@@ -19,8 +19,8 @@ while(video.isOpened()):
     #hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
 
     # definiujemy zakres koloru brazowego (mozna tutaj jeszcze poeksperymentowac)
-    lower_brown = np.array([0, 0, 0])
-    upper_brown = np.array([30, 100, 130])
+    lower_brown = np.array([0, 15, 21])
+    upper_brown = np.array([46, 126, 130])
 
     # maskowanie w celu uzyskania tylko brazowgo koloru
     mask = cv2.inRange(hsv, lower_brown, upper_brown)
@@ -35,7 +35,7 @@ while(video.isOpened()):
 
     for c in cnts:
         # ignorowanie zbyt malych obszarow
-        if cv2.contourArea(c) < 7000:
+        if cv2.contourArea(c) < 10000:
             continue
         else:
             widac_tory = True
@@ -54,6 +54,7 @@ while(video.isOpened()):
     widac_tory = False
 
     cv2.imshow('frame',frame)
+    cv2.imshow('frame1', subframe)
 
     # warunek ktory zapewnia odstep miedzy klatkami i umozliwajacy wyjscia
     if (cv2.waitKey(10) & 0xFF == ord('q')):
