@@ -5,13 +5,13 @@ import cv2
 import numpy as np
 
 video = cv2.VideoCapture('C:\Users\Dawid\PycharmProjects\PKM\przeszkody.avi')
-
+counter_widac_tory = 0
 while(video.isOpened()):
 
     # pobieramy ramke
     _, frame = video.read()
     # wycinamy fragment, na ktorym widac tory
-    subframe = frame[200:400, 150:350]
+    subframe = frame[200:350, 150:350]
 
 
     # konwertujemy BGR do HSV
@@ -20,13 +20,13 @@ while(video.isOpened()):
 
     # definiujemy zakres koloru brazowego (mozna tutaj jeszcze poeksperymentowac)
     lower_brown = np.array([0, 15, 21])
-    upper_brown = np.array([46, 126, 130])
+    upper_brown = np.array([46, 106, 130])
 
     # maskowanie w celu uzyskania tylko brazowgo koloru
     mask = cv2.inRange(hsv, lower_brown, upper_brown)
 
     # Thresholding, ktorego celem jest zdefiniowanie obszaru widocznosci torow
-    thresh = cv2.threshold(mask, 25, 255, cv2.THRESH_BINARY)[1]
+    thresh = cv2.threshold(mask, 25, 30, cv2.THRESH_BINARY)[1]
     thresh = cv2.dilate(thresh, None, iterations=2)
     derp, cnts, cos = cv2.findContours(thresh.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 
@@ -39,20 +39,24 @@ while(video.isOpened()):
             continue
         else:
             widac_tory = True
+            counter_widac_tory = 20
             contours.append(cv2.contourArea(c))
-            # naniesienie ramki
-            #(x, y, w, h) = cv2.boundingRect(c)
-            #cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
+            #naniesienie ramki
+            (x, y, w, h) = cv2.boundingRect(c)
+            cv2.rectangle(subframe, (x, y), (x + w, y + h), (0, 255, 0), 2)
 
-    if(not widac_tory):
+    #if(not widac_tory):
+    if(counter_widac_tory<=0):
         cv2.putText(frame,'PRZESZKODA!',(30,150),cv2.FONT_HERSHEY_SIMPLEX,1,(0,255,255))
     else:
         #fragment kodu potrzebny do pozniejszego ulepszenia algorytmu
-        max_contour = max(contours)
-        print(max_contour)
+        if(widac_tory):
+            max_contour = max(contours)
+            #print(max_contour)
 
     widac_tory = False
-
+    counter_widac_tory-=1
+    print(counter_widac_tory)
     cv2.imshow('frame',frame)
     cv2.imshow('frame1', subframe)
 
