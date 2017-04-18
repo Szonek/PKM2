@@ -6,9 +6,8 @@ import numpy as np
 
 video = cv2.VideoCapture('C:\Users\Dawid\PycharmProjects\PKM\przeszkody.avi')
 counter_widac_tory = 0
+counter_proste = 0
 while(video.isOpened()):
-
-
 
     # pobieramy ramke
     _, frame = video.read()
@@ -16,6 +15,9 @@ while(video.isOpened()):
     subframe = frame[200:350, 150:350]
 
 
+    #zmiennne uzywane do wykrywania krawedzi
+    empty = True
+    gray = frame[200:400, 150:350]
 
     # konwertujemy BGR do HSV
     hsv = cv2.cvtColor(subframe, cv2.COLOR_BGR2HSV)
@@ -44,13 +46,37 @@ while(video.isOpened()):
             widac_tory = True
             counter_widac_tory = 20
             contours.append(cv2.contourArea(c))
-            #naniesienie ramki
-            (x, y, w, h) = cv2.boundingRect(c)
-            cv2.rectangle(subframe, (x, y), (x + w, y + h), (0, 255, 0), 2)
+            # #naniesienie ramki
+            # (x, y, w, h) = cv2.boundingRect(c)
+            # cv2.rectangle(subframe, (x, y), (x + w, y + h), (0, 255, 0), 2)
 
-    #if(not widac_tory):
-    if(counter_widac_tory<=0):
-        cv2.putText(frame,'PRZESZKODA!',(30,150),cv2.FONT_HERSHEY_SIMPLEX,1,(0,255,255))
+    #wykrywanie krawedzi
+    edges = cv2.Canny(gray, 50, 150, apertureSize=3)
+    minLineLength = 80
+    numberOfLines = 0
+    lines = cv2.HoughLinesP(image=edges, rho=1, theta=np.pi / 180, threshold=70, lines=np.array([]),
+                            minLineLength=minLineLength, maxLineGap=10)
+    if lines is None:
+        empty = False
+
+    if(empty):
+        a, b, c = lines.shape
+        for i in range(a):
+            if (abs(lines[i][0][2] - lines[i][0][0])<50):
+                #cv2.line(gray, (lines[i][0][0], lines[i][0][1]), (lines[i][0][2], lines[i][0][3]), (0, 0, 255), 3, cv2.LINE_AA)
+                numberOfLines+=1
+
+    if(numberOfLines >2):
+        counter_proste = 15
+    elif(numberOfLines == 0):
+        counter_proste-=1
+
+    if (counter_proste<=1):
+        cv2.putText(frame, 'ZAKRET ALBO PRZESZKODA', (30, 30), cv2.FONT_HERSHEY_COMPLEX_SMALL, 1, (255, 255, 255))
+
+
+    if(counter_widac_tory<=0 and counter_proste <= 0 ):
+        cv2.putText(frame,'PRZESZKODA!',(30,250),cv2.FONT_HERSHEY_SIMPLEX,1,(0,255,255))
     else:
         #fragment kodu potrzebny do pozniejszego ulepszenia algorytmu
         if(widac_tory):
@@ -59,9 +85,9 @@ while(video.isOpened()):
 
     widac_tory = False
     counter_widac_tory-=1
-    print(counter_widac_tory)
+    print(counter_proste)
     cv2.imshow('frame',frame)
-    cv2.imshow('frame1', subframe)
+    #cv2.imshow('frame1', subframe)
 
     # warunek ktory zapewnia odstep miedzy klatkami i umozliwajacy wyjscia
     if (cv2.waitKey(10) & 0xFF == ord('q')):
