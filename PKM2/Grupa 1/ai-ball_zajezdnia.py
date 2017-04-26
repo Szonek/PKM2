@@ -7,8 +7,6 @@ import requests
 import threading
 from threading import Thread, Event, ThreadError
 
-#Haar's method face detection
-faceCascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
 
 class Cam():
     def __init__(self, url):
@@ -34,22 +32,38 @@ class Cam():
                     bytes = bytes[b + 2:]
                     frame = cv2.imdecode(np.fromstring(jpg, dtype=np.uint8), cv2.IMREAD_COLOR)
                     #------------------ insert algorythms HERE ------------------
-                    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+                    img = frame
 
-                    faces = faceCascade.detectMultiScale(
-                        gray,
-                        scaleFactor=1.15,
-                        minNeighbors=5,
-                        minSize=(20, 20),
-                        flags=cv2.CASCADE_SCALE_IMAGE
-                    )
+                    # color conversion
+                    hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
 
-                    # Draw a rectangle around the faces
-                    for (x, y, w, h) in faces:
-                        cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 0, 255), 2)
+                    # ranges of depot colors
+                    zajezdnia_lower = np.array([0, 0, 220], np.uint8)
+                    zajezdnia_upper = np.array([50, 255, 255], np.uint8)
+
+                    # searching in defined range
+                    zajezdnia = cv2.inRange(hsv, zajezdnia_lower, zajezdnia_upper)
+
+                    # morphological transformation, dilation
+                    kernal = np.ones((5, 5), "uint8")
+                    zajezdnia = cv2.dilate(zajezdnia, kernal)
+                    res = cv2.bitwise_and(img, img, mask=zajezdnia)
+
+                    # object contours function
+                    (_, contours, hierarchy) = cv2.findContours(zajezdnia, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+
+                    # depot tracking
+                    for pic, contour in enumerate(contours):
+                        area = cv2.contourArea(contour)
+                        if (area > 3000 and area < 12000):
+                            x, y, w, h = cv2.boundingRect(contour)
+                            img = cv2.rectangle(img,(x,y),(x+w,y+h),(0,0,255),2)
+                            cv2.putText(img, "  ZAJEZDNIA WRZESZCZ   ", (60, 180), cv2.FONT_HERSHEY_SIMPLEX, 1.4,
+                                        (0, 0, 255))
 
                     # Display the resulting frame
-                    cv2.imshow('Video', frame)
+                    cv2.imshow("Depot Tracking", img)
+                    cv2.imshow('',res)
                     # ------------------ algorythms end HERE ------------------
                     if cv2.waitKey(1) & 0xFF == ord('q'):
                         exit(0)
@@ -67,7 +81,7 @@ class Cam():
         return True
 
 
-#stream's address
+
 url = 'http://192.168.2.1/?action=stream'
 cam = Cam(url)
 cam.start()

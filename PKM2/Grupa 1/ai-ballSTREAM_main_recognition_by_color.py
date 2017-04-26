@@ -8,11 +8,20 @@ import threading
 from threading import Thread, Event, ThreadError
 from cv2 import __version__
 
-import argparse
 from collections import deque
 # definiujemy zakresy koloru HSV
 redLower = (0, 110, 0)
 redUpper = (3, 255, 255)
+
+#inicjalizujemy parametry naszego obramowania ==0
+maxy=0
+maxx=0
+miny=0
+minx=0
+offset=10 #offset do obramowania
+zatrzask=0
+peron=False
+
 
 class Cam():
     def __init__(self, url):
