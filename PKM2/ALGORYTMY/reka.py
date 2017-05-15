@@ -13,7 +13,8 @@ def reka( frame,track_window ):
 
     # Wyciencie samej dloni z obrazu testowego
     x, y, w, h, = 100, 100, 400, 400
-    obrazDloni = frame[y:y + h, x:x + w]
+    frames = cv2.imread('./INNE/ramka.jpg')
+    obrazDloni = frames[y:y + h, x:x + w]
     # Dobor odpowiedniej maski filtrujaca nasza dlon z niepotrzebnych elementow
     dlonHsv = cv2.cvtColor(obrazDloni, cv2.COLOR_BGR2HSV)
     mask = cv2.inRange(dlonHsv, np.array((80., 90., 110.)), np.array((190., 160., 255.)))
