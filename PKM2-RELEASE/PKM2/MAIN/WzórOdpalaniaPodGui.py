@@ -1,0 +1,6 @@
+import os
+tel = {'peron':True,'zajezdnia':False,'reka':False,'tory':False,"czerwony":False,'twarz':False}
+filmOrCam=1 #1== dla filmu ,obojetnie jaka inna liczba dla kamery
+os.system("python skryptRozdzielajacy.py "+str(filmOrCam)+ " czysty.avi "+str(tel))
+
+
