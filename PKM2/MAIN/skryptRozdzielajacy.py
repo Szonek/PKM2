@@ -1,7 +1,7 @@
 import sys
 import cv2
-import przetwarzanieFilmu
-from przetwarzanieFilmu import przetwarzajfilm
+import obsługa_nagrania
+from obsługa_nagrania import przetwarzajfilm
 
 peronPrzetwarzaj=False
 zajezdniaPrzetwarzaj=False
@@ -52,6 +52,7 @@ if __name__ == "__main__":
             else:
                 twarzPrzetwarzaj = False
     if filmOrCam==2:
-        przetwarzajfilm(sciezka,peronPrzetwarzaj)#dodawajcie swoje znaczniki do przekazywania
+        przetwarzajfilm(sciezka,peronPrzetwarzaj)#dodawajcie swoje znaczniki do przekazywania n
+        #  np zajezadnia + peron przetwarzajfilm(sciezka,peronPrzetwarzaj, zajezdniaPrzetwarzaj)
     else:
-        print ""#miejsce dla Ciebie Tomus,podepniesz tutaj funkcje do przetwarzania
+        print ("miejsce dla Ciebie Tomus,podepniesz tutaj funkcje do przetwarzania")

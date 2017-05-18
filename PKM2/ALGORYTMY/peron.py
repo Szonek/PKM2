@@ -2,7 +2,7 @@ import cv2
 
 
 
-def peron(frame,lower_value,upper_value):
+def peron(frame,lower_value,upper_value,zatrzask):
     offset = 10  # offset do obramowania
     maxy = 0
     maxx = 0
@@ -52,12 +52,11 @@ def peron(frame,lower_value,upper_value):
                         # Nastepnie zerujemy nasze wartosci graniczne
 
     if n > 60:  # jesli juz 'n' jest takie jak powinno wypisujemy na ekranie napis mowiacy o wystapieniu peronu
-        zatrzask = True  # zatrzask informujacy nas o tym czy mamy wypisac napis
+        zatrzask = 15  # zatrzask informujacy nas o tym czy mamy wypisac napis
         peron = True  # licznik potrzebny do wypisywania napisy w konkretnej liczbie klatek i jesli w tej kaltce mamy wypisac napis
         # to postanawiamy ,ze w kolejnych 14 tez wypiszemy-Liczba ta jest opcjonalna i kazdy moze ja indywidualnie dobrac
-    else:zatrzask=False
     if zatrzask > 0:
         cv2.putText(frame, "Peron!", (50, 50), cv2.FONT_HERSHEY_COMPLEX_SMALL, .9, (255, 0, 100))
         zatrzask-=1
-
+    return zatrzask
 
