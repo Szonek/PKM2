@@ -12,14 +12,14 @@ Upper = (3, 255, 255)
 
 def przetwarzajfilm(sciezka,peronPrzetwarzaj):
     camera = cv2.VideoCapture(sciezka)
-	zatrzask=0
+    zatrzask=0
     while (camera.isOpened()):
         ret, frame = camera.read()
 
         if peronPrzetwarzaj:
-            peron(frame,Lower,Upper)
-        if zajezdniaPrzetwarzaj:
-            zatrzask=zajezdnia(frame,zajezdnia_lower_value,zajezdnia_upper_value,zatrzask)
+            zatrzask=peron(frame,Lower,Upper,zatrzask)
+        #if zajezdniaPrzetwarzaj:
+         #   zatrzask=zajezdnia(frame,zajezdnia_lower_value,zajezdnia_upper_value,zatrzask)
 
 
 
