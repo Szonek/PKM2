@@ -1,7 +1,6 @@
 import sys
 import cv2
-import przetwarzanieFilmu
-from przetwarzanieFilmu import przetwarzajfilm
+from obsluga_nagrania import przetwarzajfilm
 
 peronPrzetwarzaj=False
 zajezdniaPrzetwarzaj=False
