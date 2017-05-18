@@ -9,16 +9,23 @@ zajezdnia_upper_value = (50,255,255)
 Lower = (0, 120, 0)
 Upper = (3, 255, 255)
 
-# inicjalizacja flag
 
-def przetwarzajfilm(sciezka,peronPrzetwarzaj):
+
+def przetwarzajfilm(sciezka,peronPrzetwarzaj,przeszkodyPtrzewarzaj):
     camera = cv2.VideoCapture(sciezka)
+    # inicjalizacja flag
     zatrzask=0
+
+    counter_proste = 0
+    counter_widac_tory = 0
+
     while (camera.isOpened()):
         ret, frame = camera.read()
 
         if peronPrzetwarzaj:
             zatrzask=peron(frame,Lower,Upper,zatrzask)
+        if przeszkodyPtrzewarzaj:
+            counter_proste,counter_widac_tory = przeszkodyPtrzewarzaj(frame,counter_proste,counter_widac_tory)
        # if zajezdniaPrzetwarzaj:
         #    zajezdnia(frame,zajezdnia_lower_value,zajezdnia_upper_value)
 

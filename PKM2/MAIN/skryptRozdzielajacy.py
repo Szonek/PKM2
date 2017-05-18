@@ -6,7 +6,7 @@ from obsługa_nagrania import przetwarzajfilm
 peronPrzetwarzaj=False
 zajezdniaPrzetwarzaj=False
 rekaPrzetwarzaj=False
-toryPrzetwarzaj=False
+przeszkodyPrzetwarzaj=False
 czerwonyPrzetwarzaj=False
 twarzPrzetwarzaj=False
 filmOrCam=1
@@ -38,9 +38,9 @@ if __name__ == "__main__":
                 rekaPrzetwarzaj = False
         elif sys.argv[i].find("tory") != -1:
             if sys.argv[i + 1].find("True") != -1:
-                toryPrzetwarzaj = True
+                przeszkodyPrzetwarzaj = True
             else:
-                toryPrzetwarzaj = False
+                przeszkodyPrzetwarzaj = False
         elif sys.argv[i].find("czerwony") != -1:
             if sys.argv[i + 1].find("True") != -1:
                 czerwonyPrzetwarzaj = True
@@ -52,7 +52,7 @@ if __name__ == "__main__":
             else:
                 twarzPrzetwarzaj = False
     if filmOrCam==2:
-        przetwarzajfilm(sciezka,peronPrzetwarzaj)#dodawajcie swoje znaczniki do przekazywania n
+        przetwarzajfilm(sciezka,peronPrzetwarzaj,przeszkodyPrzetwarzaj)#dodawajcie swoje znaczniki do przekazywania n
         #  np zajezadnia + peron przetwarzajfilm(sciezka,peronPrzetwarzaj, zajezdniaPrzetwarzaj)
     else:
         print ("miejsce dla Ciebie Tomus,podepniesz tutaj funkcje do przetwarzania")
