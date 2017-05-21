@@ -82,4 +82,4 @@ def przeszkody(frame,counter_proste,counter_widac_tory):
     counter_widac_tory -= 1
     # print(counter_proste)
 
-
+    return counter_proste, counter_widac_tory
