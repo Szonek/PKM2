@@ -4,7 +4,8 @@ import numpy as np
 def zajezdnia(frame, zajezdnia_lower_value, zajezdnia_upper_value):
 
     # color conversion
-    hsv = cv2.cvtColor(img,cv2.COLOR_BGR2HSV)
+    img = frame
+    hsv = cv2.cvtColor(frame,cv2.COLOR_BGR2HSV)
 
     #ranges of depot colors
     #zajezdnia_lower = np.array([0, 0, 240], np.uint8)

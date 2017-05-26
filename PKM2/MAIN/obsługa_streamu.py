@@ -2,9 +2,12 @@ import numpy
 import cv2
 from ALGORYTMY.peron import peron
 from ALGORYTMY.zajezdnia import zajezdnia
-from ALGORYTMY.Adam_ruch import ruch
+from ALGORYTMY.Adam_ruch import ruchomy
 from ALGORYTMY.reka import reka
 from ALGORYTMY.twarz import twarz
+from ALGORYTMY.przeszkody import  przeszkody
+from ALGORYTMY.banan import banan
+from ALGORYTMY.train import pociag
 
 import numpy as np
 import time
@@ -24,7 +27,7 @@ Upper = (3, 255, 255)
 
 
 def przetwarzajSTREAM(zajezdniaPrzetwarzaj, peronPrzetwarzaj,przeszkodyPtrzewarzaj,
-                      rekaPrzetwarzaj, twarzPrzetwarzaj, ruchPrzetwarzaj,
+                      rekaPrzetwarzaj, twarzPrzetwarzaj, ruchPrzetwarzaj,czerwonyPrzetwarzaj,
                       bananPrzetwarzaj):
     zatrzask=0
     url = 'http://192.168.2.1/?action=stream'
@@ -64,13 +67,17 @@ def przetwarzajSTREAM(zajezdniaPrzetwarzaj, peronPrzetwarzaj,przeszkodyPtrzewarz
                 zatrzask = peron(frame, Lower, Upper, zatrzask)
 
             if przeszkodyPtrzewarzaj:
-                counter_proste, counter_widac_tory = przeszkodyPtrzewarzaj(frame, counter_proste, counter_widac_tory)
+                counter_proste, counter_widac_tory = przeszkody(frame, counter_proste, counter_widac_tory)
             if rekaPrzetwarzaj:
                 track_window, term_crit, roi_hist = reka(frame, track_window, term_crit, roi_hist)
             if ruchPrzetwarzaj:
-                licznikruch = (frame,licznik_ruch)
+                licznik_ruch = ruchomy(frame,licznik_ruch)
             if twarzPrzetwarzaj:
                 twarz(frame)
+            if czerwonyPrzetwarzaj:
+                pociag(frame)
+            if bananPrzetwarzaj:
+                banan(frame)
 
 
             # Display

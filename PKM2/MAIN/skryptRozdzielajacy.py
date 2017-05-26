@@ -1,7 +1,9 @@
 
 import sys
 import cv2
-from obsługa_nagrania import przetwarzajfilm
+from MAIN.obsluga_nagrania import przetwarzajfilm
+from MAIN.obsługa_streamu import przetwarzajSTREAM
+
 
 peronPrzetwarzaj=False
 zajezdniaPrzetwarzaj=False
@@ -9,6 +11,9 @@ rekaPrzetwarzaj=False
 przeszkodyPrzetwarzaj=False
 czerwonyPrzetwarzaj=False
 twarzPrzetwarzaj=False
+ruchPrzetwarzaj = False
+bananPrzetwarzaj = False
+czerwonyPrzetwarzaj = False
 filmOrCam=1
 sciezka=''
 
@@ -49,10 +54,24 @@ if __name__ == "__main__":
         elif sys.argv[i].find("twarz") != -1:
             if sys.argv[i + 1].find("True") != -1:
                 twarzPrzetwarzaj = True
+                bananPrzetwarzaj = True
             else:
                 twarzPrzetwarzaj = False
+                bananPrzetwarzaj = False
+        elif sys.argv[i].find("ruch") != -1:
+            if sys.argv[i + 1].find("True") != -1:
+                ruchPrzetwarzaj = True
+            else:
+                ruchPrzetwarzaj = False
+        elif sys.argv[i].find("czerwony") != -1:
+            if sys.argv[i + 1].find("True") != -1:
+                czerwonyPrzetwarzaj = True
+            else:
+                czerwonyPrzetwarzaj = False
     if filmOrCam==2:
-        przetwarzajfilm(sciezka,peronPrzetwarzaj,przeszkodyPrzetwarzaj)#dodawajcie swoje znaczniki do przekazywania n
+        przetwarzajfilm(sciezka,peronPrzetwarzaj,przeszkodyPrzetwarzaj, ruchPrzetwarzaj)#dodawajcie swoje znaczniki do przekazywania n
         #  np zajezadnia + peron przetwarzajfilm(sciezka,peronPrzetwarzaj, zajezdniaPrzetwarzaj)
     else:
-        print ("miejsce dla Ciebie Tomus,podepniesz tutaj funkcje do przetwarzania")
+        przetwarzajSTREAM(zajezdniaPrzetwarzaj, peronPrzetwarzaj, przeszkodyPrzetwarzaj,
+                          rekaPrzetwarzaj, twarzPrzetwarzaj, ruchPrzetwarzaj,czerwonyPrzetwarzaj,
+                          bananPrzetwarzaj)

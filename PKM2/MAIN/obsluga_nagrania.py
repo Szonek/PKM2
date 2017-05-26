@@ -2,7 +2,7 @@ import numpy
 import cv2
 from ALGORYTMY.peron import peron
 from ALGORYTMY.zajezdnia import zajezdnia
-from ALGORYTMY.Adam_ruch import ruch
+from ALGORYTMY.Adam_ruch import ruchomy
 from ALGORYTMY.reka import reka
 import numpy as np
 
@@ -19,9 +19,12 @@ def przetwarzajfilm(sciezka,peronPrzetwarzaj,przeszkodyPtrzewarzaj,rekaPrzetwarz
     camera = cv2.VideoCapture(sciezka)
     # inicjalizacja flag
     zatrzask=0
-    track_window, term_crit, roi_hist = 0
-    if rekaPrzetwarzaj:
-        track_window, term_crit, roi_hist = initReka()
+    track_window = 0
+    term_crit = 0
+    roi_hist = 0
+    licznik_ruch = 0
+    # if rekaPrzetwarzaj:
+    #     track_window, term_crit, roi_hist = initReka()
 
     counter_proste = 0
     counter_widac_tory = 0
@@ -36,7 +39,8 @@ def przetwarzajfilm(sciezka,peronPrzetwarzaj,przeszkodyPtrzewarzaj,rekaPrzetwarz
         # if ruchPrzetwarzaj:
         #     licznikruch = (frame,licznik_ruch)
         if rekaPrzetwarzaj:
-            track_window, term_crit, roi_hist = reka(frame, track_window, term_crit, roi_hist)
+            #track_window, term_crit, roi_hist = reka(frame, track_window, term_crit, roi_hist)
+            licznik_ruch = ruchomy(frame, licznik_ruch)
 
        # if zajezdniaPrzetwarzaj:
         #    zajezdnia(frame,zajezdnia_lower_value,zajezdnia_upper_value)

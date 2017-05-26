@@ -1,11 +1,11 @@
 import numpy as np
 import cv2
 
-def ruch(frame):
+def ruchomy(frame,licznik):
     fgbg = cv2.createBackgroundSubtractorMOG2()
     height, width = frame.shape[:2]
     prev_frame = np.zeros([130, width])
-    licznik =0
+
 
     history = 4
 
@@ -16,7 +16,7 @@ def ruch(frame):
     prev_frame = gray
 
     uklad = np.sum(fgmask)
-    print(licznik)
+
     font = cv2.FONT_HERSHEY_SIMPLEX
     if(uklad < 40000):
      licznik-=1
@@ -29,4 +29,5 @@ def ruch(frame):
     if(licznik > 0):
         cv2.putText(frame, 'Jedzie', (100, 100), font, 3, (255, 255, 255), 2)
 
+    return licznik
 

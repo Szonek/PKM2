@@ -72,13 +72,13 @@ def przeszkody(frame,counter_proste,counter_widac_tory):
     if (counter_widac_tory <= 1 and counter_proste <= 1):
         cv2.putText(frame, 'PRZESZKODA!', (30, 250), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 255))
 
-    else:
-        # fragment kodu potrzebny do pozniejszego ulepszenia algorytmu
-        if (widac_tory):
-            max_contour = max(contours)
-            print(max_contour)
+    # else:
+    #     # fragment kodu potrzebny do pozniejszego ulepszenia algorytmu
+    #     if (widac_tory):
+    #         max_contour = max(contours)
+    #         print(max_contour)
 
-    widac_tory = False
+    # widac_tory = False
     counter_widac_tory -= 1
     # print(counter_proste)
 

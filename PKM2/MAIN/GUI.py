@@ -29,15 +29,15 @@ class Okno(QMainWindow):
         filmOrCam = 2      
         print("\nStart detekcji na strumieniu: \n")
         if self.ui.detekcja_zajezdnia_checkBox.isChecked():
-            tel['peron'] = True
+            tel['zajezdnia'] = True
             print("Detekcja zajezdni aktywna")
             
         if self.ui.detekcja_perony_checkBox.isChecked():
-            tel['zajezdnia'] = True
+            tel['peron'] = True
             print("Detekcja peronow aktywna")
             
         if self.ui.detekcja_przeszkody_checkBox.isChecked():
-            tel['przeszkoda'] = True
+            tel['tory'] = True
             print("Detekcja przeszkod aktywna")
             
         if self.ui.detekcja_twarz_checkBox.isChecked():
@@ -55,6 +55,7 @@ class Okno(QMainWindow):
         if self.ui.detekcja_czerwony_pociag_checkBox.isChecked():
             tel['czerwony'] = True
             print("Detekcja czerwonego pociągu aktywna")
+        os.system("python skryptRozdzielajacy.py " + str(3) + " czysty.avi " + str(tel))
                               
     def nagranie_start(self):
         
@@ -86,8 +87,10 @@ class Okno(QMainWindow):
             
         if self.ui.detekcja_czerwony_pociag_checkBox.isChecked():
             tel['czerwony'] = True
-            print("Detekcja czerwonego pociągu aktywna")  
-   # def kalibruj(self
+            print("Detekcja czerwonego pociągu aktywna")
+
+        os.system("python skryptRozdzielajacy.py " + str(filmOrCam) + " czysty.avi " + str(tel))
+            # def kalibruj(self
         
 if __name__ == '__main__':
     qApp = QApplication(sys.argv)

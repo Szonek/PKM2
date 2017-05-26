@@ -11,7 +11,7 @@ def banan(frame):
 
     faces = faceCascade.detectMultiScale(
         gray,
-        scaleFactor=1.15,
+        scaleFactor=1.2,
         minNeighbors=5,
         minSize=(20, 20),
         flags=cv2.CASCADE_SCALE_IMAGE
@@ -19,6 +19,6 @@ def banan(frame):
 
         # Draw a rectangle around the faces
     for (x, y, w, h) in faces:
-        cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 0, 255), 2)
+        cv2.rectangle(frame, (x, y), (x + w, y + h), (255, 0, 0), 2)
 
     return frame
