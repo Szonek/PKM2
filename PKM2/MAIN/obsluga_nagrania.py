@@ -4,6 +4,10 @@ from ALGORYTMY.peron import peron
 from ALGORYTMY.zajezdnia import zajezdnia
 from ALGORYTMY.Adam_ruch import ruchomy
 from ALGORYTMY.reka import reka
+from ALGORYTMY.twarz import twarz
+from ALGORYTMY.przeszkody import  przeszkody
+from ALGORYTMY.banan import banan
+from ALGORYTMY.train import pociag
 import numpy as np
 
 
@@ -15,37 +19,39 @@ Upper = (3, 255, 255)
 
 
 
-def przetwarzajfilm(sciezka,peronPrzetwarzaj,przeszkodyPtrzewarzaj,rekaPrzetwarzaj):
+def przetwarzajfilm(sciezka,zajezdniaPrzetwarzaj, peronPrzetwarzaj,przeszkodyPtrzewarzaj,
+                      rekaPrzetwarzaj, twarzPrzetwarzaj, ruchPrzetwarzaj,czerwonyPrzetwarzaj,bananPrzetwarzaj):
     camera = cv2.VideoCapture(sciezka)
     # inicjalizacja flag
     zatrzask=0
     track_window = 0
     term_crit = 0
     roi_hist = 0
-    licznik_ruch = 0
-    # if rekaPrzetwarzaj:
-    #     track_window, term_crit, roi_hist = initReka()
+    if rekaPrzetwarzaj:
+        track_window, term_crit, roi_hist = initReka()
 
     counter_proste = 0
     counter_widac_tory = 0
-    licznik_ruch =0
+	licznik_ruch = 0
     while (camera.isOpened()):
         ret, frame = camera.read()
 
+        if zajezdniaPrzetwarzaj:
+                zajezdnia(frame,zajezdnia_lower_value,zajezdnia_upper_value)
         if peronPrzetwarzaj:
-            zatrzask=peron(frame,Lower,Upper,zatrzask)
+                zatrzask = peron(frame, Lower, Upper, zatrzask)
         if przeszkodyPtrzewarzaj:
-            counter_proste,counter_widac_tory = przeszkodyPtrzewarzaj(frame,counter_proste,counter_widac_tory)
-        # if ruchPrzetwarzaj:
-        #     licznikruch = (frame,licznik_ruch)
+                counter_proste, counter_widac_tory = przeszkody(frame, counter_proste, counter_widac_tory)
         if rekaPrzetwarzaj:
-            #track_window, term_crit, roi_hist = reka(frame, track_window, term_crit, roi_hist)
-            licznik_ruch = ruchomy(frame, licznik_ruch)
-
-       # if zajezdniaPrzetwarzaj:
-        #    zajezdnia(frame,zajezdnia_lower_value,zajezdnia_upper_value)
-
-        # wlasne przetwarzanie
+                track_window, term_crit, roi_hist = reka(frame, track_window, term_crit, roi_hist)
+        if ruchPrzetwarzaj:
+                licznik_ruch = ruchomy(frame,licznik_ruch)
+        if twarzPrzetwarzaj:
+                twarz(frame)
+        if czerwonyPrzetwarzaj:
+                pociag(frame)
+        if bananPrzetwarzaj:
+				banan(frame)
 
 
         if cv2.waitKey(1) & 0xFF == ord('q'):
@@ -75,4 +81,4 @@ def initReka():
     # Setup the termination criteria, either 10 iteration or move by atleast 1 pt
     term_crit = (cv2.TERM_CRITERIA_EPS | cv2.TERM_CRITERIA_COUNT, 10, 1)
 
-    return track_window,term_crit,roi_hist
+return track_window,term_crit,roi_hist

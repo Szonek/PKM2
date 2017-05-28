@@ -54,23 +54,27 @@ if __name__ == "__main__":
         elif sys.argv[i].find("twarz") != -1:
             if sys.argv[i + 1].find("True") != -1:
                 twarzPrzetwarzaj = True
-                bananPrzetwarzaj = True
             else:
                 twarzPrzetwarzaj = False
-                bananPrzetwarzaj = False
         elif sys.argv[i].find("ruch") != -1:
             if sys.argv[i + 1].find("True") != -1:
                 ruchPrzetwarzaj = True
             else:
                 ruchPrzetwarzaj = False
+		elif sys.argv[i].find("banan") != -1:
+            if sys.argv[i + 1].find("True") != -1:
+                bananPrzetwarzaj = True
+            else:
+                bananPrzetwarzaj = False
         elif sys.argv[i].find("czerwony") != -1:
             if sys.argv[i + 1].find("True") != -1:
                 czerwonyPrzetwarzaj = True
             else:
                 czerwonyPrzetwarzaj = False
     if filmOrCam==2:
-        przetwarzajfilm(sciezka,peronPrzetwarzaj,przeszkodyPrzetwarzaj, ruchPrzetwarzaj)#dodawajcie swoje znaczniki do przekazywania n
-        #  np zajezadnia + peron przetwarzajfilm(sciezka,peronPrzetwarzaj, zajezdniaPrzetwarzaj)
+        przetwarzajfilm(zajezdniaPrzetwarzaj, peronPrzetwarzaj, przeszkodyPrzetwarzaj,
+                          rekaPrzetwarzaj, twarzPrzetwarzaj, ruchPrzetwarzaj,czerwonyPrzetwarzaj,
+                          bananPrzetwarzaj)
     else:
         przetwarzajSTREAM(zajezdniaPrzetwarzaj, peronPrzetwarzaj, przeszkodyPrzetwarzaj,
                           rekaPrzetwarzaj, twarzPrzetwarzaj, ruchPrzetwarzaj,czerwonyPrzetwarzaj,
