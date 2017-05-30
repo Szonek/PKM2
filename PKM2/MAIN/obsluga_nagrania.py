@@ -33,6 +33,8 @@ def przetwarzajfilm(sciezka,zajezdniaPrzetwarzaj, peronPrzetwarzaj,przeszkodyPtr
     counter_proste = 0
     counter_widac_tory = 0
 	licznik_ruch = 0
+    fgbg = cv2.createBackgroundSubtractorMOG2()
+
     while (camera.isOpened()):
         ret, frame = camera.read()
 
@@ -45,7 +47,7 @@ def przetwarzajfilm(sciezka,zajezdniaPrzetwarzaj, peronPrzetwarzaj,przeszkodyPtr
         if rekaPrzetwarzaj:
                 track_window, term_crit, roi_hist = reka(frame, track_window, term_crit, roi_hist)
         if ruchPrzetwarzaj:
-                licznik_ruch = ruchomy(frame,licznik_ruch)
+                licznik_ruch = ruchomy(frame,licznik_ruch,fgbg)
         if twarzPrzetwarzaj:
                 twarz(frame)
         if czerwonyPrzetwarzaj:

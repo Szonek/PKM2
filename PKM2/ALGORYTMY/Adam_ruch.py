@@ -1,8 +1,7 @@
 import numpy as np
 import cv2
 
-def ruchomy(frame,licznik):
-    fgbg = cv2.createBackgroundSubtractorMOG2()
+def ruchomy(frame,licznik,fgbg):
     height, width = frame.shape[:2]
     prev_frame = np.zeros([130, width])
 
