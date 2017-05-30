@@ -246,7 +246,7 @@
    <widget class="QCheckBox" name="detekcja_czerwony_pociag_checkBox">
     <property name="geometry">
      <rect>
-      <x>40</x>
+      <x>170</x>
       <y>180</y>
       <width>151</width>
       <height>19</height>
@@ -259,6 +259,24 @@
     </property>
     <property name="text">
      <string>Czerwony pociąg</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="detekcja_banan_checkBox">
+    <property name="geometry">
+     <rect>
+      <x>40</x>
+      <y>180</y>
+      <width>71</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Banan</string>
     </property>
    </widget>
   </widget>
