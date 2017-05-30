@@ -9,7 +9,7 @@ import os
 #Zdecydowac ktora opcje tel wybieramy
 tel = {'peron':False,'zajezdnia':False,'reka':False,'tory':False,"czerwony":False,'twarz':False}
 
-tel = {'peron':False,'zajezdnia':False,'reka':False,'przeszkoda':False,'czerwony':False,'twarz':False, 'ruch':False}
+tel = {'peron':False,'zajezdnia':False,'reka':False,'przeszkoda':False,'czerwony':False,'twarz':False, 'ruch':False, 'banan': False}
 #cap = cv2.VideoCapture("zajezdnia3.avi")
 
 #A to gdzie ? 
@@ -18,11 +18,22 @@ tel = {'peron':False,'zajezdnia':False,'reka':False,'przeszkoda':False,'czerwony
 class Okno(QMainWindow):
     def __init__(self):
         QMainWindow.__init__(self)
-        self.ui = loadUi('PKM_GUI.ui',self)       
+        self.ui = loadUi('PKM_GUI.ui',self)
+        tel['peron', 'zajezdnia', 'reka', 'przeszkoda', 'czerwony', 'twarz,', 'ruch', 'banan'] = False
+        # tel['zajezdnia'] = True
+        #tel['peron'] = True
+        #tel['przeszkoda'] = True
+        #tel['twarz'] = True
+        #tel['reka'] = True
+        #tel['ruch'] = True
+        #tel['czerwony'] = True
+        #tel['banan'] = True
+        
         self.ui.button_stream_start.clicked.connect(self.stream_start)
         self.ui.button_nagranie_start.clicked.connect(self.nagranie_start)
         # self.ui.button_kalibruj.clicked.connect(self.kalibruj_start)
       
+    
                                    
     def stream_start(self):
         
@@ -37,7 +48,7 @@ class Okno(QMainWindow):
             print("Detekcja peronow aktywna")
             
         if self.ui.detekcja_przeszkody_checkBox.isChecked():
-            tel['tory'] = True
+            tel['przeszkoda'] = True
             print("Detekcja przeszkod aktywna")
             
         if self.ui.detekcja_twarz_checkBox.isChecked():
@@ -55,18 +66,21 @@ class Okno(QMainWindow):
         if self.ui.detekcja_czerwony_pociag_checkBox.isChecked():
             tel['czerwony'] = True
             print("Detekcja czerwonego pociągu aktywna")
-        os.system("python skryptRozdzielajacy.py " + str(3) + " czysty.avi " + str(tel))
+            
+        if self.ui.detekcja_banan_checkBox.isChecked():
+            tel['banan'] = True
+            print("Detekcja banana aktywna")
                               
     def nagranie_start(self):
         
         filmOrCam = 1      
         print("\nStart detekcji na nagraniu: \n")
         if self.ui.detekcja_zajezdnia_checkBox.isChecked():
-            tel['peron'] = True
+            tel['zajezdnia'] = True
             print("Detekcja zajezdni aktywna")
             
         if self.ui.detekcja_perony_checkBox.isChecked():
-            tel['zajezdnia'] = True
+            tel['peron'] = True
             print("Detekcja peronow aktywna")
 
         if self.ui.detekcja_przeszkody_checkBox.isChecked():
@@ -87,10 +101,11 @@ class Okno(QMainWindow):
             
         if self.ui.detekcja_czerwony_pociag_checkBox.isChecked():
             tel['czerwony'] = True
-            print("Detekcja czerwonego pociągu aktywna")
-
-        os.system("python skryptRozdzielajacy.py " + str(filmOrCam) + " czysty.avi " + str(tel))
-            # def kalibruj(self
+            print("Detekcja czerwonego pociągu aktywna")  
+            
+        if self.ui.detekcja_banan_checkBox.isChecked():
+            tel['banan'] = True
+            print("Detekcja banana aktywna")                           
         
 if __name__ == '__main__':
     qApp = QApplication(sys.argv)
