@@ -6,7 +6,7 @@ from threading import Thread, Event, ThreadError
 
 faceCascade = cv2.CascadeClassifier('train_classifier.xml')
 def pociag(frame):
-
+    #subframe = frame[150:300, 150:350]
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
     faces = faceCascade.detectMultiScale(

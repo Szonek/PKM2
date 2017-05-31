@@ -6,8 +6,8 @@ from threading import Thread, Event, ThreadError
 
 faceCascade = cv2.CascadeClassifier('banana_classifier.xml')
 def banan(frame):
-
-    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+    subframe = frame[150:300, 150:350]
+    gray = cv2.cvtColor(subframe, cv2.COLOR_BGR2GRAY)
 
     faces = faceCascade.detectMultiScale(
         gray,

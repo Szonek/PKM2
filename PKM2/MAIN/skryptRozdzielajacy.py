@@ -41,7 +41,7 @@ if __name__ == "__main__":
                 rekaPrzetwarzaj = True
             else:
                 rekaPrzetwarzaj = False
-        elif sys.argv[i].find("tory") != -1:
+        elif sys.argv[i].find("przeszkody") != -1:
             if sys.argv[i + 1].find("True") != -1:
                 przeszkodyPrzetwarzaj = True
             else:
@@ -61,21 +61,20 @@ if __name__ == "__main__":
                 ruchPrzetwarzaj = True
             else:
                 ruchPrzetwarzaj = False
-		elif sys.argv[i].find("banan") != -1:
+        elif sys.argv[i].find("banan") != -1:
             if sys.argv[i + 1].find("True") != -1:
                 bananPrzetwarzaj = True
             else:
                 bananPrzetwarzaj = False
-        elif sys.argv[i].find("czerwony") != -1:
-            if sys.argv[i + 1].find("True") != -1:
-                czerwonyPrzetwarzaj = True
-            else:
-                czerwonyPrzetwarzaj = False
+
+
     if filmOrCam==2:
-        przetwarzajfilm(zajezdniaPrzetwarzaj, peronPrzetwarzaj, przeszkodyPrzetwarzaj,
-                          rekaPrzetwarzaj, twarzPrzetwarzaj, ruchPrzetwarzaj,czerwonyPrzetwarzaj,
-                          bananPrzetwarzaj)
+        print('Przetwarzanie filmu')
+        przetwarzajfilm(sciezka, zajezdniaPrzetwarzaj, peronPrzetwarzaj, przeszkodyPrzetwarzaj,
+                          rekaPrzetwarzaj, twarzPrzetwarzaj, ruchPrzetwarzaj,bananPrzetwarzaj,czerwonyPrzetwarzaj)
     else:
-        przetwarzajSTREAM(zajezdniaPrzetwarzaj, peronPrzetwarzaj, przeszkodyPrzetwarzaj,
-                          rekaPrzetwarzaj, twarzPrzetwarzaj, ruchPrzetwarzaj,czerwonyPrzetwarzaj,
-                          bananPrzetwarzaj)
+        print('Przetwarzanie streamu')
+        przetwarzajSTREAM(zajezdniaPrzetwarzaj, peronPrzetwarzaj,
+                          przeszkodyPrzetwarzaj,rekaPrzetwarzaj,
+                          twarzPrzetwarzaj, ruchPrzetwarzaj,
+                          bananPrzetwarzaj,czerwonyPrzetwarzaj)

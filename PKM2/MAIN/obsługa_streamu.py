@@ -12,6 +12,7 @@ from ALGORYTMY.train import pociag
 import numpy as np
 import time
 import requests
+import linecache
 import threading
 from threading import Thread, Event, ThreadError
 from cv2 import __version__
@@ -22,13 +23,34 @@ zajezdnia_upper_value = (50,255,255)
 Lower = (0, 120, 0)
 Upper = (3, 255, 255)
 
+Lower1 = linecache.getline('peronHSV.txt', 1)
+#Lower1=int(Lower1)
+Lower2 = linecache.getline('peronHSV.txt', 2)
+Lower3 = linecache.getline('peronHSV.txt', 3)
+Upper1 = linecache.getline('peronHSV.txt', 4)
+Upper2 = linecache.getline('peronHSV.txt', 5)
+Upper3 = linecache.getline('peronHSV.txt', 6)
+Lower = (int(Lower1), int(Lower2), int(Lower3))
+Upper = (int(Upper1), int(Upper2), int(Upper3))
+
+
+Lower1 = linecache.getline('zajezdniaHSV.txt', 1)
+#Lower1=int(Lower1)
+Lower2 = linecache.getline('zajezdniaHSV.txt', 2)
+Lower3 = linecache.getline('zajezdniaHSV.txt', 3)
+Upper1 = linecache.getline('zajezdniaHSV.txt', 4)
+Upper2 = linecache.getline('zajezdniaHSV.txt', 5)
+Upper3 = linecache.getline('zajezdniaHSV.txt', 6)
+zajezdnia_lower_value = (int(Lower1), int(Lower2), int(Lower3))
+zajezdnia_upper_value = (int(Upper1), int(Upper2), int(Upper3))
+
 # inicjalizacja flag
 
 
 
 def przetwarzajSTREAM(zajezdniaPrzetwarzaj, peronPrzetwarzaj,przeszkodyPtrzewarzaj,
-                      rekaPrzetwarzaj, twarzPrzetwarzaj, ruchPrzetwarzaj,czerwonyPrzetwarzaj,
-                      bananPrzetwarzaj):
+                      rekaPrzetwarzaj, twarzPrzetwarzaj, ruchPrzetwarzaj,
+                      bananPrzetwarzaj,czerwonyPrzetwarzaj):
     zatrzask=0
     url = 'http://192.168.2.1/?action=stream'
     stream = requests.get(url, stream=True)
@@ -63,6 +85,9 @@ def przetwarzajSTREAM(zajezdniaPrzetwarzaj, peronPrzetwarzaj,przeszkodyPtrzewarz
             # twarzPrzetwarzaj,
             # ruchPrzetwarzaj,
             # bananPrzetwarzaj)
+
+            if ruchPrzetwarzaj:
+                licznik_ruch = ruchomy(frame, licznik_ruch, fgbg)
             if zajezdniaPrzetwarzaj:
                 zajezdnia(frame,zajezdnia_lower_value,zajezdnia_upper_value)
             if peronPrzetwarzaj:
@@ -70,16 +95,20 @@ def przetwarzajSTREAM(zajezdniaPrzetwarzaj, peronPrzetwarzaj,przeszkodyPtrzewarz
 
             if przeszkodyPtrzewarzaj:
                 counter_proste, counter_widac_tory = przeszkody(frame, counter_proste, counter_widac_tory)
+
             if rekaPrzetwarzaj:
                 track_window, term_crit, roi_hist = reka(frame, track_window, term_crit, roi_hist)
-            if ruchPrzetwarzaj:
-                licznik_ruch = ruchomy(frame,licznik_ruch,fgbg)
+
+
+
             if twarzPrzetwarzaj:
                 twarz(frame)
-            if czerwonyPrzetwarzaj:
-                pociag(frame)
+
             if bananPrzetwarzaj:
                 banan(frame)
+
+            if czerwonyPrzetwarzaj:
+                pociag(frame)
 
 
             # Display
@@ -96,7 +125,7 @@ def initReka():
     r, a, c, b = 100, 200, 100, 150
     track_window = (r, a, c, b)
     x, y, w, h, = 100, 100, 400, 400
-    frames = cv2.imread('./INNE/ramka.jpg')
+    frames = cv2.imread('C:/Users/DELL/Desktop/PKM2-RELEASE_1.5(1)/PKM2-RELEASE_1.5/PKM2/INNE/ramka.jpg')
     obrazDloni = frames[y:y + h, x:x + w]
     # Dobor odpowiedniej maski filtrujaca nasza dlon z niepotrzebnych elementow
     dlonHsv = cv2.cvtColor(obrazDloni, cv2.COLOR_BGR2HSV)

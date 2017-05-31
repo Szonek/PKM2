@@ -25,7 +25,7 @@ def reka( frame, track_window, term_crit, roi_hist ):
     dst = cv2.medianBlur(dst, 3)  # powoduje usuniecie niektorych szumow do testowania
 
     # Funkcja szukajaca srodka masy tzn przesuwa okno w miejsce wiekszego zagesczenia dst
-    ret, strack_window = cv2.meanShift(dst, track_window,term_crit)
+    ret, track_window = cv2.meanShift(dst, track_window,term_crit)
     x, y, w, h = track_window
 
     # Pobieramy ramke z obrazu rozkladu prawdobodobientwa znalezienia tego samego histogramu

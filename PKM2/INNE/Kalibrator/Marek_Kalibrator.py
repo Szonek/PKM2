@@ -168,6 +168,7 @@ cv2.createTrackbar('VLo','image',240,255,nothing)
 cv2.createTrackbar('VUp','image',255,255,nothing)
 cv2.createTrackbar('Zapis','image',0,1,nothing)
 
+################################################
 
 while(cap.isOpened()):
     _, frame = cap.read()
