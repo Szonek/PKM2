@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>613</width>
-    <height>350</height>
+    <width>332</width>
+    <height>517</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -45,6 +45,9 @@
      <font>
       <pointsize>12</pointsize>
      </font>
+    </property>
+    <property name="autoFillBackground">
+     <bool>false</bool>
     </property>
     <property name="text">
      <string>Perony</string>
@@ -89,8 +92,8 @@
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>0</y>
+      <x>30</x>
+      <y>10</y>
       <width>281</width>
       <height>51</height>
      </rect>
@@ -101,67 +104,32 @@
      </font>
     </property>
     <property name="text">
-     <string>Obiekty do wykrywania</string>
+     <string>WYKRYWANE OBIEKTY</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_2">
     <property name="geometry">
      <rect>
-      <x>330</x>
-      <y>65</y>
-      <width>261</width>
+      <x>30</x>
+      <y>220</y>
+      <width>291</width>
       <height>31</height>
      </rect>
     </property>
     <property name="font">
      <font>
-      <pointsize>20</pointsize>
+      <pointsize>18</pointsize>
      </font>
     </property>
     <property name="text">
-     <string>Detekcja na nagraniu</string>
+     <string>DETEKCJA NA NAGRANIU</string>
     </property>
-   </widget>
-   <widget class="QComboBox" name="comboBox">
-    <property name="geometry">
-     <rect>
-      <x>350</x>
-      <y>115</y>
-      <width>90</width>
-      <height>30</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>10</pointsize>
-     </font>
-    </property>
-    <item>
-     <property name="text">
-      <string>Nagranie 1</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>Nagranie 2</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>Nagranie 3</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>Nagranie 4</string>
-     </property>
-    </item>
    </widget>
    <widget class="QPushButton" name="button_nagranie_start">
     <property name="geometry">
      <rect>
-      <x>470</x>
-      <y>115</y>
+      <x>110</x>
+      <y>260</y>
       <width>90</width>
       <height>30</height>
      </rect>
@@ -173,26 +141,26 @@
    <widget class="QLabel" name="label_3">
     <property name="geometry">
      <rect>
-      <x>320</x>
-      <y>175</y>
-      <width>281</width>
+      <x>20</x>
+      <y>300</y>
+      <width>341</width>
       <height>51</height>
      </rect>
     </property>
     <property name="font">
      <font>
-      <pointsize>20</pointsize>
+      <pointsize>18</pointsize>
      </font>
     </property>
     <property name="text">
-     <string>Detekcja na strumieniu</string>
+     <string>DETEKCJA NA STRUMIENIU</string>
     </property>
    </widget>
    <widget class="QPushButton" name="button_stream_start">
     <property name="geometry">
      <rect>
-      <x>400</x>
-      <y>230</y>
+      <x>110</x>
+      <y>350</y>
       <width>90</width>
       <height>30</height>
      </rect>
@@ -209,8 +177,8 @@
    <widget class="QPushButton" name="button_kalibruj">
     <property name="geometry">
      <rect>
-      <x>90</x>
-      <y>265</y>
+      <x>110</x>
+      <y>440</y>
       <width>90</width>
       <height>30</height>
      </rect>
@@ -227,8 +195,8 @@
    <widget class="QLabel" name="label_4">
     <property name="geometry">
      <rect>
-      <x>40</x>
-      <y>185</y>
+      <x>80</x>
+      <y>400</y>
       <width>211</width>
       <height>31</height>
      </rect>
@@ -239,7 +207,7 @@
      </font>
     </property>
     <property name="text">
-     <string>Kalibracja koloru</string>
+     <string>KALIBRACJA</string>
     </property>
    </widget>
    <widget class="QCheckBox" name="detekcja_twarz_checkBox">
@@ -260,42 +228,6 @@
      <string>Twarz</string>
     </property>
    </widget>
-   <widget class="QCheckBox" name="kalibruj_perony_checkBox">
-    <property name="geometry">
-     <rect>
-      <x>180</x>
-      <y>230</y>
-      <width>81</width>
-      <height>21</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>12</pointsize>
-     </font>
-    </property>
-    <property name="text">
-     <string>Perony</string>
-    </property>
-   </widget>
-   <widget class="QCheckBox" name="kalibruj_zajezdnia_checkBox">
-    <property name="geometry">
-     <rect>
-      <x>40</x>
-      <y>230</y>
-      <width>91</width>
-      <height>21</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>12</pointsize>
-     </font>
-    </property>
-    <property name="text">
-     <string>Zajezdnia</string>
-    </property>
-   </widget>
    <widget class="QCheckBox" name="detekcja_ruch_checkBox">
     <property name="geometry">
      <rect>
@@ -314,13 +246,31 @@
      <string>Ruch pociągu</string>
     </property>
    </widget>
+   <widget class="QCheckBox" name="detekcja_banan_checkBox">
+    <property name="geometry">
+     <rect>
+      <x>40</x>
+      <y>180</y>
+      <width>71</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Banan</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>613</width>
+     <width>332</width>
      <height>21</height>
     </rect>
    </property>
