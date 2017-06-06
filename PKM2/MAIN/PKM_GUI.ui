@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>334</width>
-    <height>529</height>
+    <width>332</width>
+    <height>517</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -45,6 +45,9 @@
      <font>
       <pointsize>12</pointsize>
      </font>
+    </property>
+    <property name="autoFillBackground">
+     <bool>false</bool>
     </property>
     <property name="text">
      <string>Perony</string>
@@ -89,8 +92,8 @@
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>0</y>
+      <x>30</x>
+      <y>10</y>
       <width>281</width>
       <height>51</height>
      </rect>
@@ -108,7 +111,7 @@
     <property name="geometry">
      <rect>
       <x>30</x>
-      <y>230</y>
+      <y>220</y>
       <width>291</width>
       <height>31</height>
      </rect>
@@ -126,7 +129,7 @@
     <property name="geometry">
      <rect>
       <x>110</x>
-      <y>270</y>
+      <y>260</y>
       <width>90</width>
       <height>30</height>
      </rect>
@@ -139,7 +142,7 @@
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>310</y>
+      <y>300</y>
       <width>341</width>
       <height>51</height>
      </rect>
@@ -157,7 +160,7 @@
     <property name="geometry">
      <rect>
       <x>110</x>
-      <y>360</y>
+      <y>350</y>
       <width>90</width>
       <height>30</height>
      </rect>
@@ -175,7 +178,7 @@
     <property name="geometry">
      <rect>
       <x>110</x>
-      <y>450</y>
+      <y>440</y>
       <width>90</width>
       <height>30</height>
      </rect>
@@ -193,7 +196,7 @@
     <property name="geometry">
      <rect>
       <x>80</x>
-      <y>410</y>
+      <y>400</y>
       <width>211</width>
       <height>31</height>
      </rect>
@@ -243,24 +246,6 @@
      <string>Ruch pociągu</string>
     </property>
    </widget>
-   <widget class="QCheckBox" name="detekcja_czerwony_pociag_checkBox">
-    <property name="geometry">
-     <rect>
-      <x>170</x>
-      <y>180</y>
-      <width>151</width>
-      <height>19</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>12</pointsize>
-     </font>
-    </property>
-    <property name="text">
-     <string>Czerwony pociąg</string>
-    </property>
-   </widget>
    <widget class="QCheckBox" name="detekcja_banan_checkBox">
     <property name="geometry">
      <rect>
@@ -285,7 +270,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>334</width>
+     <width>332</width>
      <height>21</height>
     </rect>
    </property>
